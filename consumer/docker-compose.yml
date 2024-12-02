@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27020:27017"
+    volumes:
+      - ./database:/data/db
+
+  consumer:
+    image: dkafka_consumer:v1
+    build:
+      context: ./consumer-app
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo_db
+
+  api:
+    image: dkafka_api:v1
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo_db
+      - consumer
+    ports:
+      - "8000:80"
