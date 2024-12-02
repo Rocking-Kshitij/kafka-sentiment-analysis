@@ -30,4 +30,3 @@ mongodb url: mongodb://localhost:27020/
    docker compose -f ./kafka/docker-compose.yml up -d --build
    docker compose -f ./producer/docker-compose.yml up -d --build
    docker compose -f ./consumer/docker-compose.yml up -d --build
-      ```
